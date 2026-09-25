@@ -55,7 +55,7 @@ EVAL_SCRIPT = Path(
     )
 )
 BATCH_PY = D_ROOT / "scripts/run_full_no_knowledge_chain_batch.py"
-CVE_LIST_230 = D_ROOT / "patcheval-dataset/230.txt"
+CVE_LIST_230 = Path(os.environ.get("PATCHEVAL_CASE_LIST", str(D_ROOT / "patcheval-dataset/230.txt")))
 DEFAULT_EXP_ROOT = D_ROOT / "outputs/qwen_patcheval"
 DEFAULT_PY = Path(os.environ.get("PY", str(PATCH_EVAL / ".venv/bin/python")))
 CONTAINER_SUFFIX = "qwen_patcheval"
