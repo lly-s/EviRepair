@@ -1,0 +1,176 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "repair_task_packet_v1",
+  "title": "D14 Repair MAS Task Packet",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "role",
+    "work_dir",
+    "vulnerability_model_path",
+    "repair_state_path",
+    "problem_summary",
+    "analysis_status",
+    "repair_mode",
+    "root_cause_summary",
+    "expected_secure_behavior",
+    "security_boundary_predicate",
+    "compatibility_requirements",
+    "validation_requirements",
+    "validation_matrix_path",
+    "instance_obligations"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "role": {
+      "enum": [
+        "patch_generator",
+        "patch_reviewer"
+      ]
+    },
+    "work_dir": {
+      "type": "string"
+    },
+    "vulnerability_model_path": {
+      "type": "string"
+    },
+    "repair_state_path": {
+      "type": "string"
+    },
+    "validation_matrix_path": {
+      "type": "string"
+    },
+    "candidate_patch_path": {
+      "type": "string"
+    },
+    "findings_output_path": {
+      "type": "string"
+    },
+    "output_patch_path": {
+      "type": "string"
+    },
+    "problem_summary": {
+      "type": "string"
+    },
+    "analysis_status": {
+      "type": "string"
+    },
+    "repair_mode": {
+      "enum": [
+        "required",
+        "noop_preferred",
+        "defense_in_depth_with_waiver"
+      ]
+    },
+    "root_cause_summary": {
+      "type": "string"
+    },
+    "expected_secure_behavior": {
+      "type": "string"
+    },
+    "attack_path_summary": {
+      "type": "string"
+    },
+    "security_boundary_predicate": {
+      "type": "string"
+    },
+    "target_locations": {
+      "type": "array",
+      "items": {
+        "type": [
+          "string",
+          "object"
+        ]
+      }
+    },
+    "compatibility_requirements": {
+      "type": "array",
+      "items": {
+        "type": [
+          "string",
+          "object"
+        ]
+      }
+    },
+    "validation_requirements": {
+      "type": "array",
+      "items": {
+        "type": [
+          "string",
+          "object"
+        ]
+      }
+    },
+    "must_preserve_controls": {
+      "type": "array",
+      "items": {
+        "type": [
+          "string",
+          "object"
+        ]
+      }
+    },
+    "must_block_or_reject_cases": {
+      "type": "array",
+      "items": {
+        "type": [
+          "string",
+          "object"
+        ]
+      }
+    },
+    "coverage_gaps_from_analysis": {
+      "type": "array",
+      "items": {
+        "type": [
+          "string",
+          "object"
+        ]
+      }
+    },
+    "critical_questions": {
+      "type": "array",
+      "items": {
+        "type": [
+          "string",
+          "object"
+        ]
+      }
+    },
+    "instance_obligations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Case-specific obligations projected from the vulnerability model."
+    },
+    "leader_focus_notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Optional generator packet field: refinement focus for the current iteration."
+    },
+    "allowed_edit_scope": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Optional generator packet field: allowed edit scope for this iteration."
+    },
+    "review_dimensions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Reviewer packet field listing the full validation dimensions."
+    },
+    "iteration": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Optional generator/leader-side round counter for bookkeeping."
+    }
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "validation_matrix_v1",
+  "title": "D14 Repair Validation Matrix",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "work_dir",
+    "source",
+    "rows"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "work_dir": { "type": "string" },
+    "vulnerability_model_path": { "type": "string" },
+    "source": {
+      "type": "object",
+      "description": "Provenance of rows. Rows are projected from the analysis handoff.",
+      "properties": {
+        "projected_from": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "initialized_by": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    },
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "row_id",
+          "category",
+          "description",
+          "expected_secure_outcome",
+          "source_ref"
+        ],
+        "properties": {
+          "row_id": { "type": "string" },
+          "category": {
+            "enum": [
+              "violating",
+              "legitimate_control",
+              "negative_mutation",
+              "boundary_neighbor",
+              "compatibility",
+              "coverage_gap_closure",
+              "build_or_load",
+              "clean_apply"
+            ]
+          },
+          "description": { "type": "string" },
+          "dimension": { "type": "string" },
+          "expected_secure_outcome": { "type": "string" },
+          "source_ref": {
+            "type": "string",
+            "description": "Pointer into vulnerability_model.json."
+          },
+          "blocking": {
+            "type": "boolean",
+            "default": true
+          },
+          "execution": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "pending",
+                  "executed",
+                  "source_qualified",
+                  "blocked_by_environment",
+                  "not_applicable"
+                ]
+              },
+              "executor_role": {
+                "enum": ["leader", "patch_generator", "shared"]
+              },
+              "command_or_artifact": { "type": "string" },
+              "observed_outcome": { "type": "string" },
+              "supports_secure_claim": { "type": ["boolean", "null"] },
+              "notes": { "type": "string" }
+            }
+          },
+          "review": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": ["pending", "accepted", "rejected", "needs_refine"]
+              },
+              "reviewer_notes": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "properties": {
+        "blocking_pending": { "type": "integer" },
+        "blocking_failed": { "type": "integer" },
+        "blocking_passed": { "type": "integer" },
+        "ready_for_review": { "type": "boolean" }
+      }
+    }
+  }
+}

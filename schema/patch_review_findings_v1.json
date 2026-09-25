@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "patch_review_findings_v1",
+  "title": "D14 Patch Review Findings",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "verdict",
+    "dimension_results",
+    "validation_matrix_path",
+    "refinement_guidance"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "verdict": {
+      "enum": ["PASS", "REFINE", "FAIL"]
+    },
+    "candidate_patch_path": { "type": "string" },
+    "validation_matrix_path": { "type": "string" },
+    "dimension_results": {
+      "type": "object",
+      "required": [
+        "strategy_gate",
+        "root_cause_coverage",
+        "attack_path_coverage",
+        "boundary_restoration",
+        "compatibility_preservation",
+        "coverage_gap_handling",
+        "critical_question_coverage",
+        "validation_evidence_sufficiency",
+        "anti_pattern_check",
+        "stress_family_coverage",
+        "clean_apply_consistency"
+      ],
+      "additionalProperties": {
+        "type": "object",
+        "required": ["status", "evidence"],
+        "properties": {
+          "status": { "enum": ["PASS", "FAIL", "WAIVED"] },
+          "evidence": { "type": "string" },
+          "waiver_rationale": { "type": "string" }
+        }
+      }
+    },
+    "blocking_findings": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "refinement_guidance": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "unresolved_risks": {
+      "type": "array",
+      "items": { "type": ["string", "object"] }
+    }
+  }
+}

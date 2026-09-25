@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "role": "patch_generator",
+  "work_dir": "/workspace/example-project",
+  "vulnerability_model_path": "/workspace/example-project/.vulnerability-analysis/vulnerability_model.json",
+  "repair_state_path": "/workspace/example-project/.repair/repair_state.json",
+  "validation_matrix_path": "/workspace/example-project/.repair/validation_matrix.json",
+  "candidate_patch_path": "/workspace/example-project/.repair/candidate.patch",
+  "output_patch_path": "/workspace/fix.patch",
+  "problem_summary": "Short local summary from the analysis handoff.",
+  "analysis_status": "confirmed",
+  "repair_mode": "required",
+  "root_cause_summary": "Missing enforcement at the authoritative sink named by analysis.",
+  "expected_secure_behavior": "Violating inputs are rejected or safely contained; legitimate controls keep working.",
+  "attack_path_summary": "Attacker-controlled input reaches the sensitive sink through the public entrypoint.",
+  "security_boundary_predicate": "Only in-boundary operations are allowed after normalization.",
+  "target_locations": [
+    "path/to/authoritative_sink.ext"
+  ],
+  "compatibility_requirements": [
+    "Preserve legitimate control behavior named by analysis."
+  ],
+  "validation_requirements": [
+    "Exercise violating and legitimate matrix rows on the patched worktree."
+  ],
+  "must_preserve_controls": [
+    "L1 legitimate control"
+  ],
+  "must_block_or_reject_cases": [
+    "V1 violating case"
+  ],
+  "coverage_gaps_from_analysis": [],
+  "critical_questions": [
+    "Is the check placed at the shared chokepoint?"
+  ],
+  "instance_obligations": [
+    "Restore the boundary predicate at the authoritative sink",
+    "Keep compatibility rows green"
+  ],
+  "leader_focus_notes": [
+    "First iteration: close the root-cause sink with minimal edit."
+  ],
+  "allowed_edit_scope": [
+    "path/to/authoritative_sink.ext"
+  ],
+  "iteration": 1
+}

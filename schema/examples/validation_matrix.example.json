@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0",
+  "work_dir": "/workspace/example-project",
+  "vulnerability_model_path": "/workspace/example-project/.vulnerability-analysis/vulnerability_model.json",
+  "source": {
+    "projected_from": [
+      "boundary.violating_cases",
+      "boundary.legitimate_controls",
+      "repair_guidance.compatibility_requirements",
+      "repair_guidance.validation_requirements"
+    ],
+    "initialized_by": "leader",
+    "notes": "Abstract example only. Real rows are projected from the local vulnerability model."
+  },
+  "rows": [
+    {
+      "row_id": "V1",
+      "category": "violating",
+      "description": "Canonical violating case from analysis",
+      "dimension": "security_boundary",
+      "expected_secure_outcome": "blocked_or_safely_rejected",
+      "source_ref": "vulnerability_model.boundary.violating_cases[0]",
+      "blocking": true,
+      "execution": { "status": "pending" },
+      "review": { "status": "pending" }
+    },
+    {
+      "row_id": "C1",
+      "category": "compatibility",
+      "description": "Legitimate control that must remain accepted",
+      "dimension": "compatibility",
+      "expected_secure_outcome": "accepted_unchanged",
+      "source_ref": "vulnerability_model.repair_guidance.compatibility_requirements[0]",
+      "blocking": true,
+      "execution": { "status": "pending" },
+      "review": { "status": "pending" }
+    },
+    {
+      "row_id": "A1",
+      "category": "clean_apply",
+      "description": "Candidate patch clean-applies on baseline",
+      "expected_secure_outcome": "clean_apply_ok",
+      "source_ref": "repair_workflow.clean_apply",
+      "blocking": true,
+      "execution": { "status": "pending" },
+      "review": { "status": "pending" }
+    }
+  ],
+  "summary": {
+    "blocking_pending": 3,
+    "blocking_failed": 0,
+    "blocking_passed": 0,
+    "ready_for_review": false
+  }
+}
